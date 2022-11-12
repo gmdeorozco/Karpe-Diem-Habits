@@ -27,9 +27,15 @@ public class DayLifeCalculatorService {
         ArrayList< DayLife > relevantDayLifes = 
             createDayLifesByInterval(task, task.getInitialDate(), task.getEndDate());
         task.setDayLifes( relevantDayLifes );
-        
-        
     }
+
+    public void recalculateFutureDayLifes(Task task) {
+        LocalDate today = LocalDate.now();
+        ArrayList< DayLife > relevantDayLifes = 
+            createDayLifesByInterval(task, today, task.getEndDate());
+        task.setDayLifes( relevantDayLifes );
+    }
+
 
     public ArrayList<DayLife> createDayLifesByInterval(Task task, LocalDate initialDate, LocalDate endDate){
         
@@ -73,6 +79,7 @@ public class DayLifeCalculatorService {
                         .anyMatch(daylife -> daylife.getDate().equals(date));
     }
 
+   
     
 
     

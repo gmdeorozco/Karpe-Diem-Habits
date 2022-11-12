@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.betterLife.habitsBuilder.controller.habitsBuilderController;
 import com.betterLife.habitsBuilder.model.DayLife;
 import com.betterLife.habitsBuilder.model.Task;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
 
 
 
@@ -60,6 +61,41 @@ public class TaskFindAndDeleteService {
                                 .collect(Collectors.toList());
         
         ArrayList < DayLife > approvedDayLifes = (ArrayList<DayLife>) task.getApprovedDayLifes().stream()
+                                .collect(Collectors.toList());
+
+        boolean deletedDayLifes = dayLifes.stream()
+            .allMatch( dayLife -> deleteTaskFromDayLife( dayLife, task));
+
+
+        boolean deletedApprovedDayLifes = approvedDayLifes.stream()
+            .allMatch( dayLife -> deleteTaskFromDayLife( dayLife, task));
+
+        ArrayList < DayLife > orphanDayLifes = new ArrayList<>();
+
+        //Colect orphan daylifes
+        dayLifes.stream().filter( dayLife -> orphanDayLife.isOrphanDayLife(dayLife) )
+            .forEach( dayLife -> orphanDayLifes.add(dayLife));
+        
+        approvedDayLifes.stream().filter( dayLife -> orphanDayLife.isOrphanDayLife(dayLife) )
+            .forEach( dayLife -> orphanDayLifes.add(dayLife));
+
+        orphanDayLifes.stream().forEach( dayLife -> orphanDayLife.deleteOrphanDayLife(dayLife) );
+        
+
+        return deletedDayLifes && deletedApprovedDayLifes;
+    }
+
+    public boolean deleteTaskFromFutureDayLifes( Task task ){
+
+        LocalDate today = LocalDate.now();
+        System.out.println("todayś date: " + today.toString() );
+
+        ArrayList < DayLife > dayLifes = (ArrayList<DayLife>) task.getDayLifes().stream()
+                                .filter( dl -> dl.getDate().equals( today ) || dl.getDate().isAfter( today ) )
+                                .collect(Collectors.toList());
+        
+        ArrayList < DayLife > approvedDayLifes = (ArrayList<DayLife>) task.getApprovedDayLifes().stream()
+                                .filter( dl -> dl.getDate().equals(today) || dl.getDate().isAfter(today) )
                                 .collect(Collectors.toList());
 
         boolean deletedDayLifes = dayLifes.stream()
