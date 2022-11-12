@@ -51,4 +51,8 @@ public class DayLife {
         task.getDayLifes().remove(this);
     }
 
+    public String getDayOfWeek(){
+        return getDate().getDayOfWeek().toString();
+    }
+
 }
