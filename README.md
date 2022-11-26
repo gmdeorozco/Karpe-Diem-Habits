@@ -23,4 +23,11 @@
 - JUnit for testing etc
 - Optionals update
 - Lamdas update
-- 
+- Send Email Comfirmation
+- Export to JSON File and save to Mongo
+- Import from JSON File
+- OAuth implementation
+
+#New Implement
+- Actuator Service
+
