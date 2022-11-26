@@ -28,6 +28,10 @@
 - Import from JSON File
 - OAuth implementation
 
-#New Implement
+# New Implement
+
 - Actuator Service
+- Create Angular Frontend con Microservices
+- Apply Desgin Patterns
+- Audit for Best Practices
 
