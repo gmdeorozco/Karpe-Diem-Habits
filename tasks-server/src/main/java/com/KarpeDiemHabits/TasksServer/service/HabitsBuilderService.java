@@ -51,5 +51,10 @@ public interface HabitsBuilderService {
 
     public boolean deleteTaskFromAllDayLife( Task task );
 
+    public  DayLife approveTask( Long dayLifeId, Long taskId );
+
+    public  DayLife failTask ( Long dayLifeId, Long taskId );
+
+    
     
 }

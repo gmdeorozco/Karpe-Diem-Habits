@@ -82,37 +82,24 @@ public class habitsBuilderController {
     @PutMapping( "/daylife/approve/{dayLifeId}/{taskId}" )
     public ResponseEntity < DayLife > approveTask( @PathVariable( value = "dayLifeId" ) Long dayLifeId, 
                                                     @PathVariable( value = "taskId" ) Long taskId ){
-        Optional < DayLife > dayLife = habitsBuilderService.getDayLifeById( dayLifeId );
-        Optional < Task > task = habitsBuilderService.getTaskById( taskId );
-        
-        if ( dayLife.isPresent() && task.isPresent() &&
-            habitsBuilderService.findTaskWithinDayLife( dayLife.get(), taskId ) &&
-            dayLife.get().getTasks().remove( task.get() ) &&
-            dayLife.get().getApprovedTasks().add( task.get() ) )  {
-            
-            return new ResponseEntity<DayLife>( habitsBuilderService.saveDayLife( dayLife.get() ), HttpStatus.OK );
+       
+        DayLife dl = habitsBuilderService.approveTask(dayLifeId, taskId) ;
 
-        } else {
-            return new ResponseEntity<>( null , HttpStatus.NO_CONTENT);
+        return dl != null 
+            ? new ResponseEntity< DayLife >( dl, HttpStatus.OK )
+            : new ResponseEntity< >( null, HttpStatus.NO_CONTENT );
+
         }
-    }
+    
 
     @PutMapping( "/daylife/fail/{dayLifeId}/{taskId}" )
-    public ResponseEntity < DayLife > removeTask( @PathVariable( value = "dayLifeId" ) Long dayLifeId, 
+    public ResponseEntity < DayLife > failTask( @PathVariable( value = "dayLifeId" ) Long dayLifeId, 
                                                     @PathVariable( value = "taskId" ) Long taskId ){
-        Optional <DayLife> dayLife = habitsBuilderService.getDayLifeById( dayLifeId );
-        Optional <Task> task = habitsBuilderService.getTaskById( taskId );
-        
-        if( dayLife.isPresent() && task.isPresent() &&
-        habitsBuilderService.findTaskWithinDayLife(dayLife.get(), taskId) &&
-            dayLife.get().getApprovedTasks().remove(task.get()) &&
-            dayLife.get().getTasks().add(task.get()) ){
-           
-                return new ResponseEntity< DayLife >(habitsBuilderService.saveDayLife(dayLife.get()), HttpStatus.OK);
-        } else{
-            return new ResponseEntity<>( null , HttpStatus.NO_CONTENT);
-        }
+                                                        DayLife dl = habitsBuilderService.failTask(dayLifeId, taskId) ;
 
+                return dl != null 
+                       ? new ResponseEntity< DayLife >( dl, HttpStatus.OK )
+                       : new ResponseEntity< >( null, HttpStatus.NO_CONTENT );
         
     }
 
@@ -144,14 +131,8 @@ public class habitsBuilderController {
         Optional <Task> task = habitsBuilderService.getTaskById( taskId );
         Optional <DayLife> dayLife = habitsBuilderService.getDayLifeById( dayLifeId );
 
-        boolean deleteTaskFromDayLife = habitsBuilderService.deleteTaskFromDayLife(dayLife.get(), task.get());
-        
-        if ( deleteTaskFromDayLife ){ 
-            habitsBuilderService.saveDayLife( dayLife.get() );
-            habitsBuilderService.deleteOrphanDayLife( dayLife.get() );
-        }
-
-        return deleteTaskFromDayLife;
+        return habitsBuilderService.deleteTaskFromDayLife(dayLife.get(), task.get());
+    
     }
 
     @DeleteMapping( "/task/delete/{taskId}" )
@@ -159,18 +140,8 @@ public class habitsBuilderController {
         
         return habitsBuilderService.getTaskById( taskId )
             .map( task -> {
-                boolean deleteAllDayLifesFromTask = habitsBuilderService.deleteTaskFromAllDayLife( task );
-                
-                if ( deleteAllDayLifesFromTask ) {
-                habitsBuilderService.saveTask( task );
-                habitsBuilderService.deleteTaskById( task.getId() );      
-                }
-
-                return deleteAllDayLifesFromTask;
+                return habitsBuilderService.deleteTaskFromAllDayLife( task );
             }).orElse(  false );      
     }
-
-   
-    
     
 }

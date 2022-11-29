@@ -204,8 +204,14 @@ public class HabitsBuilderServiceImpl implements HabitsBuilderService {
         boolean removeDayLife = task.getDayLifes().remove( daylife );
         boolean removeApprovedDayLife = task.getApprovedDayLifes().remove( daylife );
 
-        return ( removeFromTasks || removeFromApprovedTasks)
+        boolean result = ( removeFromTasks || removeFromApprovedTasks)
          && ( removeDayLife || removeApprovedDayLife );
+
+        if ( result ){
+            saveDayLife( daylife );
+            deleteOrphanDayLife( daylife );
+        }  
+        return result;
     }
    
     @Override
@@ -263,8 +269,43 @@ public class HabitsBuilderServiceImpl implements HabitsBuilderService {
         orphanDayLifes.stream().forEach( dayLife -> deleteOrphanDayLife(dayLife) );
         
 
-        return deletedDayLifes && deletedApprovedDayLifes;
+        boolean result = deletedDayLifes && deletedApprovedDayLifes;
+        if ( result ){
+            saveTask( task );
+            deleteTaskById( task.getId() );  
+        }
+        return result;
+    }
+    
+    @Override
+    public DayLife approveTask( Long dayLifeId, Long taskId ){
+        Optional < DayLife > dayLife = getDayLifeById( dayLifeId );
+        Optional < Task > task = getTaskById( taskId );
+        
+        if ( dayLife.isPresent() && task.isPresent() &&
+            findTaskWithinDayLife( dayLife.get(), taskId ) &&
+            dayLife.get().getTasks().remove( task.get() ) &&
+            dayLife.get().getApprovedTasks().add( task.get() )){
+                return saveDayLife(dayLife.get());
+            }
+        return null;
     }
 
+    @Override
+    public DayLife failTask(Long dayLifeId, Long taskId) {
+        Optional <DayLife> dayLife = getDayLifeById( dayLifeId );
+        Optional <Task> task = getTaskById( taskId );
+        
+        if( dayLife.isPresent() && task.isPresent() &&
+            findTaskWithinDayLife(dayLife.get(), taskId) &&
+            dayLife.get().getApprovedTasks().remove(task.get()) &&
+            dayLife.get().getTasks().add(task.get()) ){
+           
+                return saveDayLife(dayLife.get());
+        } else{
+            return null;
+        }
+
+    }
     
 }
