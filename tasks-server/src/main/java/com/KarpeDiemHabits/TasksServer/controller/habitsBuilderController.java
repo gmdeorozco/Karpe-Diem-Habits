@@ -18,8 +18,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.KarpeDiemHabits.TasksServer.model.DayLife;
-import com.KarpeDiemHabits.TasksServer.model.Task;
+import com.KarpeDiemHabits.TasksServer.entities.DayLife;
+import com.KarpeDiemHabits.TasksServer.entities.Task;
 import com.KarpeDiemHabits.TasksServer.service.DayLifeCalculatorService;
 import com.KarpeDiemHabits.TasksServer.service.DayLifeScoreService;
 import com.KarpeDiemHabits.TasksServer.service.HabitsBuilderService;
@@ -76,10 +76,8 @@ public class habitsBuilderController {
 
     @PostMapping( "/task/create" )
     public ResponseEntity < Task > createTask (@RequestBody Task task){
-        
-        dayLifeCalculatorService.recalculateDayLifes(habitsBuilderService.saveTask(task));
-
-        return new ResponseEntity<>(task , HttpStatus.CREATED);
+       
+        return new ResponseEntity<>(habitsBuilderService.saveTask(task) , HttpStatus.CREATED);
     }
     
     @PutMapping( "/task/update/{taskId}" )
@@ -89,7 +87,7 @@ public class habitsBuilderController {
         return habitsBuilderService.getTaskById( taskId )
             .map(  tsk  ->  {
                 taskFindAndDeleteService.deleteTaskFromFutureDayLifes( tsk );
-                dayLifeCalculatorService.recalculateFutureDayLifes( habitsBuilderService.saveTask( newTask ) );
+                habitsBuilderService.recalculateFutureDayLifes( habitsBuilderService.saveTask( newTask ) );
                 return new ResponseEntity<>( tsk , HttpStatus.CREATED );
             }).orElse( new ResponseEntity<>( null, HttpStatus.NO_CONTENT));     
     }

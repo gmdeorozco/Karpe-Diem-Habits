@@ -1,4 +1,4 @@
-package com.betterLife.habitsBuilder.service;
+package com.KarpeDiemHabits.TasksServer.service;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -7,10 +7,8 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.betterLife.habitsBuilder.controller.habitsBuilderController;
-import com.betterLife.habitsBuilder.model.DayLife;
-import com.betterLife.habitsBuilder.model.Task;
-import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
+import com.KarpeDiemHabits.TasksServer.entities.DayLife;
+import com.KarpeDiemHabits.TasksServer.entities.Task;
 
 
 

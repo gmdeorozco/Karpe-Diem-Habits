@@ -1,6 +1,5 @@
-package com.KarpeDiemHabits.TasksServer.model;
+package com.KarpeDiemHabits.TasksServer.entities;
 
-import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
@@ -14,12 +13,10 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -27,6 +24,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor 
 @NoArgsConstructor
 @Entity
+@Builder
 @Table ( name = "tasks" )
 public class Task {
 

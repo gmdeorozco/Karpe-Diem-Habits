@@ -1,10 +1,10 @@
-package com.betterLife.habitsBuilder.service;
+package com.KarpeDiemHabits.TasksServer.service;
 
 import java.time.LocalDate;
 
 import org.springframework.stereotype.Service;
 
-import com.betterLife.habitsBuilder.model.Task;
+import com.KarpeDiemHabits.TasksServer.entities.Task;
 
 @Service
 public class TaskFinderByDateService {

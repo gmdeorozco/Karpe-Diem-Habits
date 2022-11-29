@@ -1,10 +1,10 @@
-package com.betterLife.habitsBuilder.service;
+package com.KarpeDiemHabits.TasksServer.service;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.betterLife.habitsBuilder.model.DayLife;
+import com.KarpeDiemHabits.TasksServer.entities.DayLife;
 
 @Service
 public class OrphanDayLifeService {

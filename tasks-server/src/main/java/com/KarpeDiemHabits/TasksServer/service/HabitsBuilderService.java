@@ -1,11 +1,11 @@
-package com.betterLife.habitsBuilder.service;
+package com.KarpeDiemHabits.TasksServer.service;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Optional;
 
-import com.betterLife.habitsBuilder.model.DayLife;
-import com.betterLife.habitsBuilder.model.Task;
+import com.KarpeDiemHabits.TasksServer.entities.DayLife;
+import com.KarpeDiemHabits.TasksServer.entities.Task;
 
 public interface HabitsBuilderService {
     
@@ -32,4 +32,10 @@ public interface HabitsBuilderService {
     DayLife getDayLifeByDate(LocalDate date) ;
 
     ArrayList<Task> getTasksByDate( LocalDate date );
+
+    public ArrayList<DayLife> createDayLifesByInterval(Task task, LocalDate initialDate, LocalDate endDate);
+
+    public void recalculateDayLifes(Task task) ;
+
+    public void recalculateFutureDayLifes(Task task) ;
 }
