@@ -1,0 +1,15 @@
+/workspace/Karpe-Diem-Habits/tasks-server/src/main/java/com/betterLife/habitsBuilder/model/TaskCategoryAttributeConverter.java
+/workspace/Karpe-Diem-Habits/tasks-server/src/main/java/com/betterLife/habitsBuilder/controller/habitsBuilderController.java
+/workspace/Karpe-Diem-Habits/tasks-server/src/main/java/com/betterLife/habitsBuilder/service/HabitsBuilderServiceImpl.java
+/workspace/Karpe-Diem-Habits/tasks-server/src/main/java/com/betterLife/habitsBuilder/service/OrphanDayLifeService.java
+/workspace/Karpe-Diem-Habits/tasks-server/src/main/java/com/betterLife/habitsBuilder/model/DayLife.java
+/workspace/Karpe-Diem-Habits/tasks-server/src/main/java/com/betterLife/habitsBuilder/HabitsBuilderApplication.java
+/workspace/Karpe-Diem-Habits/tasks-server/src/main/java/com/betterLife/habitsBuilder/model/TaskCategory.java
+/workspace/Karpe-Diem-Habits/tasks-server/src/main/java/com/betterLife/habitsBuilder/service/DayLifeCalculatorService.java
+/workspace/Karpe-Diem-Habits/tasks-server/src/main/java/com/betterLife/habitsBuilder/model/Task.java
+/workspace/Karpe-Diem-Habits/tasks-server/src/main/java/com/betterLife/habitsBuilder/service/DayLifeScoreService.java
+/workspace/Karpe-Diem-Habits/tasks-server/src/main/java/com/betterLife/habitsBuilder/service/TaskFindAndDeleteService.java
+/workspace/Karpe-Diem-Habits/tasks-server/src/main/java/com/betterLife/habitsBuilder/service/TaskFinderByDateService.java
+/workspace/Karpe-Diem-Habits/tasks-server/src/main/java/com/betterLife/habitsBuilder/service/HabitsBuilderService.java
+/workspace/Karpe-Diem-Habits/tasks-server/src/main/java/com/betterLife/habitsBuilder/repository/TaskRepository.java
+/workspace/Karpe-Diem-Habits/tasks-server/src/main/java/com/betterLife/habitsBuilder/repository/DayLifeRepository.java

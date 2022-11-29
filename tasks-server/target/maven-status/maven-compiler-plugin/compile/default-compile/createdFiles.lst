@@ -1,0 +1,16 @@
+com/betterLife/habitsBuilder/service/HabitsBuilderService.class
+com/betterLife/habitsBuilder/HabitsBuilderApplication.class
+com/betterLife/habitsBuilder/service/TaskFinderByDateService.class
+com/betterLife/habitsBuilder/service/TaskFindAndDeleteService.class
+com/betterLife/habitsBuilder/service/DayLifeCalculatorService.class
+com/betterLife/habitsBuilder/repository/TaskRepository.class
+com/betterLife/habitsBuilder/model/Task$1.class
+com/betterLife/habitsBuilder/service/HabitsBuilderServiceImpl.class
+com/betterLife/habitsBuilder/controller/habitsBuilderController.class
+com/betterLife/habitsBuilder/model/TaskCategoryAttributeConverter.class
+com/betterLife/habitsBuilder/repository/DayLifeRepository.class
+com/betterLife/habitsBuilder/service/DayLifeScoreService.class
+com/betterLife/habitsBuilder/model/Task.class
+com/betterLife/habitsBuilder/model/DayLife.class
+com/betterLife/habitsBuilder/model/TaskCategory.class
+com/betterLife/habitsBuilder/service/OrphanDayLifeService.class
