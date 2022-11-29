@@ -260,16 +260,17 @@ public class HabitsBuilderServiceImpl implements HabitsBuilderService {
         ArrayList < DayLife > orphanDayLifes = new ArrayList<>();
 
         //Colect orphan daylifes
-        dayLifes.stream().filter( dayLife -> isOrphanDayLife(dayLife) )
+        dayLifes.stream().filter( dayLife -> isOrphanDayLife( dayLife ) )
             .forEach( dayLife -> orphanDayLifes.add(dayLife));
         
-        approvedDayLifes.stream().filter( dayLife -> isOrphanDayLife(dayLife) )
-            .forEach( dayLife -> orphanDayLifes.add(dayLife));
+        approvedDayLifes.stream().filter( dayLife -> isOrphanDayLife( dayLife ) )
+            .forEach( dayLife -> orphanDayLifes.add( dayLife ));
 
-        orphanDayLifes.stream().forEach( dayLife -> deleteOrphanDayLife(dayLife) );
+        orphanDayLifes.stream().forEach( dayLife -> deleteOrphanDayLife( dayLife ) );
         
 
         boolean result = deletedDayLifes && deletedApprovedDayLifes;
+        
         if ( result ){
             saveTask( task );
             deleteTaskById( task.getId() );  

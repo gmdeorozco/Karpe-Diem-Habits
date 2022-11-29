@@ -96,7 +96,6 @@ public class habitsBuilderController {
     public ResponseEntity < DayLife > failTask( @PathVariable( value = "dayLifeId" ) Long dayLifeId, 
                                                     @PathVariable( value = "taskId" ) Long taskId ){
                                                         DayLife dl = habitsBuilderService.failTask(dayLifeId, taskId) ;
-
                 return dl != null 
                        ? new ResponseEntity< DayLife >( dl, HttpStatus.OK )
                        : new ResponseEntity< >( null, HttpStatus.NO_CONTENT );
