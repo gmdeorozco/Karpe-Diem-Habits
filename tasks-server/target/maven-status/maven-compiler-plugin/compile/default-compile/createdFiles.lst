@@ -2,11 +2,9 @@ com/KarpeDiemHabits/TasksServer/service/TaskFinderByDateService.class
 com/KarpeDiemHabits/TasksServer/repository/TaskRepository.class
 com/KarpeDiemHabits/TasksServer/entities/TaskCategory.class
 com/KarpeDiemHabits/TasksServer/service/HabitsBuilderService.class
-com/KarpeDiemHabits/TasksServer/service/TaskFindAndDeleteService.class
 com/KarpeDiemHabits/TasksServer/entities/Task.class
 com/KarpeDiemHabits/TasksServer/LoadDatabase.class
 com/KarpeDiemHabits/TasksServer/service/HabitsBuilderServiceImpl.class
-com/KarpeDiemHabits/TasksServer/service/OrphanDayLifeService.class
 com/KarpeDiemHabits/TasksServer/entities/TaskCategoryAttributeConverter.class
 com/KarpeDiemHabits/TasksServer/entities/Task$TaskBuilder.class
 com/KarpeDiemHabits/TasksServer/repository/DayLifeRepository.class

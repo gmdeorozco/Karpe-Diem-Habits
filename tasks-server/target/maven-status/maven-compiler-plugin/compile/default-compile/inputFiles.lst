@@ -9,8 +9,6 @@
 /workspace/Karpe-Diem-Habits/tasks-server/src/main/java/com/KarpeDiemHabits/TasksServer/entities/Task.java
 /workspace/Karpe-Diem-Habits/tasks-server/src/main/java/com/KarpeDiemHabits/TasksServer/service/DayLifeCalculatorService.java
 /workspace/Karpe-Diem-Habits/tasks-server/src/main/java/com/KarpeDiemHabits/TasksServer/controller/habitsBuilderController.java
-/workspace/Karpe-Diem-Habits/tasks-server/src/main/java/com/KarpeDiemHabits/TasksServer/service/TaskFindAndDeleteService.java
-/workspace/Karpe-Diem-Habits/tasks-server/src/main/java/com/KarpeDiemHabits/TasksServer/service/OrphanDayLifeService.java
 /workspace/Karpe-Diem-Habits/tasks-server/src/main/java/com/KarpeDiemHabits/TasksServer/service/DayLifeScoreService.java
 /workspace/Karpe-Diem-Habits/tasks-server/src/main/java/com/KarpeDiemHabits/TasksServer/entities/TaskCategory.java
 /workspace/Karpe-Diem-Habits/tasks-server/src/main/java/com/KarpeDiemHabits/TasksServer/entities/TaskCategoryAttributeConverter.java
