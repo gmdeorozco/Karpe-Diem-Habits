@@ -55,6 +55,8 @@ public interface HabitsBuilderService {
 
     public  DayLife failTask ( Long dayLifeId, Long taskId );
 
+    public boolean taskContainsDate( Task task, LocalDate date );
+
     
     
 }

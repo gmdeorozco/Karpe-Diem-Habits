@@ -16,8 +16,6 @@ import com.KarpeDiemHabits.TasksServer.repository.TaskRepository;
 @Service
 public class HabitsBuilderServiceImpl implements HabitsBuilderService {
 
-    @Autowired
-    TaskFinderByDateService taskFinderByDate;
 
     @Autowired
     TaskRepository taskRepository;
@@ -67,7 +65,7 @@ public class HabitsBuilderServiceImpl implements HabitsBuilderService {
         ArrayList< Task > allTasks = ( ArrayList< Task > ) taskRepository.findAll();
 
         ArrayList< Task > tasksWithDate = ( ArrayList< Task > ) allTasks.stream()
-            .filter( task -> taskFinderByDate.taskContainsDate( task, date ) )
+            .filter( task -> taskContainsDate( task, date ) )
             .collect(Collectors.toList());
 
         return tasksWithDate;
@@ -195,24 +193,7 @@ public class HabitsBuilderServiceImpl implements HabitsBuilderService {
         return deletedDayLifes && deletedApprovedDayLifes;
     }
 
-    //DELETE TASK FROM DAYLIFE
-    @Override
-    public boolean deleteTaskFromDayLife( DayLife daylife, Task task ){
-
-        boolean removeFromTasks = daylife.getTasks().remove( task );
-        boolean removeFromApprovedTasks = daylife.getApprovedTasks().remove( task );
-        boolean removeDayLife = task.getDayLifes().remove( daylife );
-        boolean removeApprovedDayLife = task.getApprovedDayLifes().remove( daylife );
-
-        boolean result = ( removeFromTasks || removeFromApprovedTasks)
-         && ( removeDayLife || removeApprovedDayLife );
-
-        if ( result ){
-            saveDayLife( daylife );
-            deleteOrphanDayLife( daylife );
-        }  
-        return result;
-    }
+    
    
     @Override
     public boolean deleteOrphanDayLife( DayLife dayLife ){
@@ -240,6 +221,24 @@ public class HabitsBuilderServiceImpl implements HabitsBuilderService {
             
     }
 
+    //DELETE TASK FROM DAYLIFE
+    @Override
+    public boolean deleteTaskFromDayLife( DayLife daylife, Task task ){
+
+        boolean removeFromTasks = daylife.getTasks().remove( task );
+        boolean removeFromApprovedTasks = daylife.getApprovedTasks().remove( task );
+        boolean removeDayLife = task.getDayLifes().remove( daylife );
+        boolean removeApprovedDayLife = task.getApprovedDayLifes().remove( daylife );
+
+        boolean result = ( removeFromTasks || removeFromApprovedTasks)
+         && ( removeDayLife || removeApprovedDayLife );
+
+        if ( result ){
+            saveDayLife( daylife );
+            deleteOrphanDayLife( daylife );
+        }  
+        return result;
+    }
     
     @Override
     public boolean deleteTaskFromAllDayLife( Task task ){
@@ -270,7 +269,7 @@ public class HabitsBuilderServiceImpl implements HabitsBuilderService {
         
 
         boolean result = deletedDayLifes && deletedApprovedDayLifes;
-        
+
         if ( result ){
             saveTask( task );
             deleteTaskById( task.getId() );  
@@ -307,6 +306,17 @@ public class HabitsBuilderServiceImpl implements HabitsBuilderService {
             return null;
         }
 
+    }
+
+    //CHECK IF TASK CONTAINS  A DATE
+    @Override
+    public boolean taskContainsDate( Task task, LocalDate date ){
+        LocalDate taskInitialDate = task.getInitialDate();
+        LocalDate taskEndDate = task.getEndDate();
+
+        return ( taskInitialDate.equals(date) 
+            || taskEndDate.equals(date) 
+            || ( taskInitialDate.isBefore( date ) && taskEndDate.isAfter( date ) ));
     }
     
 }

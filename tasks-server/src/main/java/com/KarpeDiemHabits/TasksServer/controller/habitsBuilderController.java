@@ -20,7 +20,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.KarpeDiemHabits.TasksServer.entities.DayLife;
 import com.KarpeDiemHabits.TasksServer.entities.Task;
-import com.KarpeDiemHabits.TasksServer.service.DayLifeCalculatorService;
 import com.KarpeDiemHabits.TasksServer.service.DayLifeScoreService;
 import com.KarpeDiemHabits.TasksServer.service.HabitsBuilderService;
 
@@ -32,11 +31,6 @@ public class habitsBuilderController {
 
     @Autowired
     HabitsBuilderService habitsBuilderService;
-
-    @Autowired
-    DayLifeCalculatorService dayLifeCalculatorService;
-
-
 
     @Autowired
     DayLifeScoreService dayLifeScoreService;
