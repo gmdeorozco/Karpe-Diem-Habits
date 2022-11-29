@@ -1,4 +1,4 @@
-package com.betterLife.habitsBuilder.controller;
+package com.KarpeDiemHabits.TasksServer.controller;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -18,13 +18,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.betterLife.habitsBuilder.model.DayLife;
-import com.betterLife.habitsBuilder.model.Task;
-import com.betterLife.habitsBuilder.service.DayLifeCalculatorService;
-import com.betterLife.habitsBuilder.service.DayLifeScoreService;
-import com.betterLife.habitsBuilder.service.HabitsBuilderService;
-import com.betterLife.habitsBuilder.service.OrphanDayLifeService;
-import com.betterLife.habitsBuilder.service.TaskFindAndDeleteService;
+import com.KarpeDiemHabits.TasksServer.model.DayLife;
+import com.KarpeDiemHabits.TasksServer.model.Task;
+import com.KarpeDiemHabits.TasksServer.service.DayLifeCalculatorService;
+import com.KarpeDiemHabits.TasksServer.service.DayLifeScoreService;
+import com.KarpeDiemHabits.TasksServer.service.HabitsBuilderService;
+import com.KarpeDiemHabits.TasksServer.service.OrphanDayLifeService;
+import com.KarpeDiemHabits.TasksServer.service.TaskFindAndDeleteService;
 
 @CrossOrigin( origins = "*")
 @RestController

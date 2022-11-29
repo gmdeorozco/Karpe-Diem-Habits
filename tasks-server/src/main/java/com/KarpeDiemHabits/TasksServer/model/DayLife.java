@@ -1,4 +1,4 @@
-package com.betterLife.habitsBuilder.model;
+package com.KarpeDiemHabits.TasksServer.model;
 
 import java.time.LocalDate;
 import java.util.ArrayList;

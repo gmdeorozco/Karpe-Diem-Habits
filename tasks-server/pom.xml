@@ -8,11 +8,11 @@
 		<version>2.7.5</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.betterLife</groupId>
-	<artifactId>habitsBuilder</artifactId>
+	<groupId>com.KarpeDiemHabits</groupId>
+	<artifactId>TasksServer</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>habitsBuilder</name>
-	<description>Demo project for Spring Boot</description>
+	<name>TasksServer</name>
+	<description>Server for Tasks and Day Rutine definition for the Karpe Diem Habits project.</description>
 	<properties>
 		<java.version>17</java.version>
 	</properties>

@@ -1,4 +1,4 @@
-package com.betterLife.habitsBuilder;
+package com.KarpeDiemHabits.TasksServer;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

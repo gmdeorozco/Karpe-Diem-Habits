@@ -1,8 +1,8 @@
-package com.betterLife.habitsBuilder.repository;
+package com.KarpeDiemHabits.TasksServer.repository;
 
 import org.springframework.data.repository.CrudRepository;
 
-import com.betterLife.habitsBuilder.model.Task;
+import com.KarpeDiemHabits.TasksServer.model.Task;
 
 public interface TaskRepository extends CrudRepository < Task, Long >{
     
