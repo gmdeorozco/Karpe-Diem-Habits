@@ -1,4 +1,4 @@
-package com.KarpeDiemHabits.TasksServer.model;
+package com.KarpeDiemHabits.TasksServer.entities;
 
 import javax.persistence.AttributeConverter;
 import java.util.stream.*;

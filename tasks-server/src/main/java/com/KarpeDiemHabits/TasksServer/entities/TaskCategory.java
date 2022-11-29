@@ -1,4 +1,4 @@
-package com.KarpeDiemHabits.TasksServer.model;
+package com.KarpeDiemHabits.TasksServer.entities;
 
 public enum TaskCategory {
     LORD("LORD"),

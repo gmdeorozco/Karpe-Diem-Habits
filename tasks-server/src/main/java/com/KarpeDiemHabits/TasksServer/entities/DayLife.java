@@ -1,4 +1,4 @@
-package com.KarpeDiemHabits.TasksServer.model;
+package com.KarpeDiemHabits.TasksServer.entities;
 
 import java.time.LocalDate;
 import java.util.ArrayList;

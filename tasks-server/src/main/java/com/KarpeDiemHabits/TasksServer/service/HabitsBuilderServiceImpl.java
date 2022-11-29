@@ -1,4 +1,4 @@
-package com.betterLife.habitsBuilder.service;
+package com.KarpeDiemHabits.TasksServer.service;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -8,10 +8,10 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.betterLife.habitsBuilder.model.DayLife;
-import com.betterLife.habitsBuilder.model.Task;
-import com.betterLife.habitsBuilder.repository.DayLifeRepository;
-import com.betterLife.habitsBuilder.repository.TaskRepository;
+import com.KarpeDiemHabits.TasksServer.entities.DayLife;
+import com.KarpeDiemHabits.TasksServer.entities.Task;
+import com.KarpeDiemHabits.TasksServer.repository.DayLifeRepository;
+import com.KarpeDiemHabits.TasksServer.repository.TaskRepository;
 
 @Service
 public class HabitsBuilderServiceImpl implements HabitsBuilderService {
@@ -27,7 +27,9 @@ public class HabitsBuilderServiceImpl implements HabitsBuilderService {
 
     @Override
     public Task saveTask(Task t) {
-        return taskRepository.save(t);
+
+        recalculateDayLifes(taskRepository.save(t));
+        return t;
     }
 
     @Override
@@ -98,6 +100,54 @@ public class HabitsBuilderServiceImpl implements HabitsBuilderService {
         return dl.size() > 0 ? dl.get(0) : null;
     }
 
-    
+    @Override
+    public ArrayList<DayLife> createDayLifesByInterval(Task task, LocalDate initialDate, LocalDate endDate){
+        
+        ArrayList < DayLife > dayLifes = new ArrayList<>();
+        
+        for( LocalDate date = initialDate; 
+                date.isBefore( endDate ) || date.isEqual( endDate ); 
+                date = date.plusDays(1 ) ){
+
+                    if ( !task.dayOfWeekIsActive(date.getDayOfWeek()) ) { continue; }
+                    
+
+                    DayLife existentDayLife = getDayLifeByDate(date);
+
+                    if ( existentDayLife == null ){
+                        DayLife dl = new DayLife();
+                        dl.setDate(date);
+                        dl.setTasks(new ArrayList<>());
+                        dl.getTasks().add(task);
+                        dl = saveDayLife( dl );
+                        
+                        dayLifes.add( dl );
+                    }else{
+                        
+                        existentDayLife.getTasks().add(task);
+                        saveDayLife(existentDayLife);
+                    }
+
+                    
+
+
+        }
+        return dayLifes;
+    }
+
+    @Override
+    public void recalculateDayLifes(Task task) {
+        ArrayList< DayLife > relevantDayLifes = 
+         createDayLifesByInterval(task, task.getInitialDate(), task.getEndDate());
+        task.setDayLifes( relevantDayLifes );
+    }
+
+    @Override
+    public void recalculateFutureDayLifes(Task task) {
+        LocalDate today = LocalDate.now();
+        ArrayList< DayLife > relevantDayLifes = 
+        createDayLifesByInterval(task, today, task.getEndDate());
+        task.setDayLifes( relevantDayLifes );
+    }
     
 }
