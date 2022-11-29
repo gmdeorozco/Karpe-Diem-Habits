@@ -19,6 +19,8 @@ public interface HabitsBuilderService {
 
     boolean deleteTaskById( long id );
 
+    Task updateTask(Task newTask);
+
     //DAYLIFE
 
     DayLife saveDayLife ( DayLife d );
@@ -38,4 +40,16 @@ public interface HabitsBuilderService {
     public void recalculateDayLifes(Task task) ;
 
     public void recalculateFutureDayLifes(Task task) ;
+
+    public boolean deleteTaskFromDayLife( DayLife daylife, Task task );
+
+    public boolean deleteOrphanDayLife( DayLife dayLife );
+
+    public boolean isOrphanDayLife( DayLife dayLife );
+
+    public boolean findTaskWithinDayLife( DayLife dayLife, Long taskId );
+
+    public boolean deleteTaskFromAllDayLife( Task task );
+
+    
 }
