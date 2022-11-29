@@ -1,4 +1,4 @@
-package com.betterLife.habitsBuilder.model;
+package com.KarpeDiemHabits.TasksServer.model;
 
 import javax.persistence.AttributeConverter;
 import java.util.stream.*;

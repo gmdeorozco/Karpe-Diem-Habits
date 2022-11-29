@@ -1,4 +1,4 @@
-package com.betterLife.habitsBuilder.model;
+package com.KarpeDiemHabits.TasksServer.model;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;
