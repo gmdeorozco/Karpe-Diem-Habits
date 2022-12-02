@@ -1,4 +1,4 @@
-package com.KarpeDiemHabits.TasksServer.service;
+package com.KarpeDiemHabits.TasksServer.service.daylifeServices;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -7,13 +7,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.KarpeDiemHabits.TasksServer.entities.DayLife;
-import com.KarpeDiemHabits.TasksServer.entities.Task;
 
 @Service
 public class DayLifeExistsService {
 
     @Autowired
-    HabitsBuilderService habitsBuilderService;
+    DayLifeGetterService habitsBuilderService;
 
 
     public DayLifeExistsService(){

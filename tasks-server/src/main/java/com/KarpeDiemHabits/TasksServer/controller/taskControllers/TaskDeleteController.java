@@ -1,4 +1,4 @@
-package com.KarpeDiemHabits.TasksServer.controller;
+package com.KarpeDiemHabits.TasksServer.controller.taskControllers;
 
 import java.util.Optional;
 
@@ -11,8 +11,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.KarpeDiemHabits.TasksServer.entities.DayLife;
 import com.KarpeDiemHabits.TasksServer.entities.Task;
-import com.KarpeDiemHabits.TasksServer.service.HabitsBuilderService;
-import com.KarpeDiemHabits.TasksServer.service.TaskDeleteService;
+import com.KarpeDiemHabits.TasksServer.service.daylifeServices.DayLifeGetterService;
+import com.KarpeDiemHabits.TasksServer.service.taskServices.TaskDeleteService;
+import com.KarpeDiemHabits.TasksServer.service.taskServices.TaskGetterService;
 
 @CrossOrigin( origins = "*")
 @RestController
@@ -23,14 +24,17 @@ public class TaskDeleteController {
     TaskDeleteService taskDeleteService;
 
     @Autowired
-    HabitsBuilderService habitsBuilderService;
+    DayLifeGetterService dayLifeGetterService;
+
+    @Autowired
+    TaskGetterService taskGetterService;
 
     @DeleteMapping( "/daylife/delete/task/{dayLifeId}/{taskId}" )
     public boolean deleteTaskFromDayLife( @PathVariable( value = "taskId" ) Long taskId, 
                                     @PathVariable( value = "dayLifeId" ) Long dayLifeId ){
 
-        Optional <Task> task = habitsBuilderService.getTaskById( taskId );
-        Optional <DayLife> dayLife = habitsBuilderService.getDayLifeById( dayLifeId );
+        Optional <Task> task = taskGetterService.getTaskById( taskId );
+        Optional <DayLife> dayLife = dayLifeGetterService.getDayLifeById( dayLifeId );
 
         return taskDeleteService.deleteTaskFromDayLife(dayLife.get(), task.get());
     
@@ -39,7 +43,7 @@ public class TaskDeleteController {
     @DeleteMapping( "/task/delete/{taskId}" )
     public boolean deleteTask ( @PathVariable (value = "taskId") Long taskId ){
         
-        return habitsBuilderService.getTaskById( taskId )
+        return taskGetterService.getTaskById( taskId )
             .map( task -> {
                 return taskDeleteService.deleteTaskFromAllDayLife( task );
             }).orElse(  false );      
