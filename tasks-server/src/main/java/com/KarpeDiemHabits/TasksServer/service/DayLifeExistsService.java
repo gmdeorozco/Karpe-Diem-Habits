@@ -10,13 +10,13 @@ import com.KarpeDiemHabits.TasksServer.entities.DayLife;
 import com.KarpeDiemHabits.TasksServer.entities.Task;
 
 @Service
-public class DayLifeCalculatorService {
+public class DayLifeExistsService {
 
     @Autowired
     HabitsBuilderService habitsBuilderService;
 
 
-    public DayLifeCalculatorService(){
+    public DayLifeExistsService(){
 
     }
 
@@ -30,7 +30,7 @@ public class DayLifeCalculatorService {
             .getAllDayLife();
         
         return dayLifes.stream()
-                        .anyMatch(daylife -> daylife.getDate().equals(date));
+                        .anyMatch(daylife -> daylife.getDate().equals( date ));
     }
 
    
