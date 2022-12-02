@@ -22,7 +22,6 @@ public class TaskDeleteService {
     Logger log = LoggerFactory.getLogger( TaskDeleteService.class );
 
     //DELETE TASK FROM DAYLIFE
-   
     public boolean deleteTaskFromDayLife( DayLife daylife, Task task ){
 
         boolean removeFromTasks = daylife.getTasks().remove( task );
@@ -45,7 +44,7 @@ public class TaskDeleteService {
 
             habitsBuilderService.saveDayLife( daylife );
             //habitsBuilderService.saveTask(task);
-            //deleteOrphanDayLife( daylife );
+            deleteOrphanDayLife( daylife );
         }  
         return result;
     }
@@ -82,11 +81,10 @@ public class TaskDeleteService {
 
         if ( result ){
 
-            //habitsBuilderService.saveTask( task );
             habitsBuilderService.deleteTaskById( task.getId() );  
         }
         return result;
-        /**/ // return true;
+        
     }
 
     public boolean deleteTaskFromFutureDayLifes( Task task ){
