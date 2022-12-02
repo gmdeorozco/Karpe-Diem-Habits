@@ -26,7 +26,7 @@ import lombok.NoArgsConstructor;
 @Entity
 @Builder
 @Table ( name = "challenges" )
-public class Challenge {
+public class Challenge extends Activity{
 
     @Id 
     @GeneratedValue( strategy = GenerationType.IDENTITY )
