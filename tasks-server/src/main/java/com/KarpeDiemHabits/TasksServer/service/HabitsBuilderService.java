@@ -14,7 +14,7 @@ public interface HabitsBuilderService {
     Task saveTask( Task t );
 
     ArrayList<Task> getAllTask();
-    ArrayList<Task> getTasksByDate( LocalDate date)
+    ArrayList<Task> getTasksByDate( LocalDate date);
 
     Optional <Task> getTaskById( long id );
 

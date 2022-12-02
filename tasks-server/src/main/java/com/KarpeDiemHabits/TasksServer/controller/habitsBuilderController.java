@@ -2,14 +2,11 @@ package com.KarpeDiemHabits.TasksServer.controller;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -22,6 +19,7 @@ import com.KarpeDiemHabits.TasksServer.entities.DayLife;
 import com.KarpeDiemHabits.TasksServer.entities.Task;
 import com.KarpeDiemHabits.TasksServer.service.DayLifeScoreService;
 import com.KarpeDiemHabits.TasksServer.service.HabitsBuilderService;
+import com.KarpeDiemHabits.TasksServer.service.TaskDeleteService;
 
 
 @CrossOrigin( origins = "*")
@@ -34,6 +32,9 @@ public class habitsBuilderController {
 
     @Autowired
     DayLifeScoreService dayLifeScoreService;
+
+    @Autowired
+    TaskDeleteService taskDeleteService;
 
 
 
@@ -68,7 +69,7 @@ public class habitsBuilderController {
     @PutMapping( "/task/update" )
     public ResponseEntity < Task > updateTask (@RequestBody Task newTask ){
         
-        return habitsBuilderService.updateTask(newTask) != null 
+        return taskDeleteService.updateTask(newTask) != null 
             ? new ResponseEntity< Task >( newTask , HttpStatus.OK )
             :  new ResponseEntity<>( null , HttpStatus.NO_CONTENT);
     }
@@ -117,24 +118,6 @@ public class habitsBuilderController {
 
     }
 
-    @DeleteMapping( "/daylife/delete/task/{dayLifeId}/{taskId}" )
-    public boolean deleteTaskFromDayLife( @PathVariable( value = "taskId" ) Long taskId, 
-                                    @PathVariable( value = "dayLifeId" ) Long dayLifeId ){
-
-        Optional <Task> task = habitsBuilderService.getTaskById( taskId );
-        Optional <DayLife> dayLife = habitsBuilderService.getDayLifeById( dayLifeId );
-
-        return habitsBuilderService.deleteTaskFromDayLife(dayLife.get(), task.get());
     
-    }
-
-    @DeleteMapping( "/task/delete/{taskId}" )
-    public boolean deleteTask ( @PathVariable (value = "taskId") Long taskId ){
-        
-        return habitsBuilderService.getTaskById( taskId )
-            .map( task -> {
-                return habitsBuilderService.deleteTaskFromAllDayLife( task );
-            }).orElse(  false );      
-    }
     
 }

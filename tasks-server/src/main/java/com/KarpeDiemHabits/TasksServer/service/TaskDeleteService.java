@@ -2,8 +2,11 @@ package com.KarpeDiemHabits.TasksServer.service;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.stream.Collectors;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,6 +19,8 @@ public class TaskDeleteService {
     @Autowired
     HabitsBuilderService habitsBuilderService;
 
+    Logger log = LoggerFactory.getLogger( TaskDeleteService.class );
+
     //DELETE TASK FROM DAYLIFE
    
     public boolean deleteTaskFromDayLife( DayLife daylife, Task task ){
@@ -25,22 +30,32 @@ public class TaskDeleteService {
         boolean removeDayLife = task.getDayLifes().remove( daylife );
         boolean removeApprovedDayLife = task.getApprovedDayLifes().remove( daylife );
 
+        log.info(""+  removeFromTasks +  removeFromApprovedTasks + removeDayLife + removeApprovedDayLife );
         boolean result = ( removeFromTasks || removeFromApprovedTasks)
          && ( removeDayLife || removeApprovedDayLife );
 
         if ( result ){
+
+            log.warn("Deleted Task " + 
+                task.getName() + 
+                " from Daylife: " + 
+                daylife.getDate());
+            log.warn( "Task id " + task.getId());
+            log.warn( "Daylife id " + daylife.getId());
+
             habitsBuilderService.saveDayLife( daylife );
-            deleteOrphanDayLife( daylife );
+            //habitsBuilderService.saveTask(task);
+            //deleteOrphanDayLife( daylife );
         }  
         return result;
     }
 
     public boolean deleteTaskFromAllDayLife( Task task ){
 
-        ArrayList < DayLife > dayLifes = (ArrayList<DayLife>) task.getDayLifes().stream()
+        List < DayLife > dayLifes = task.getDayLifes().stream()
                                 .collect(Collectors.toList());
         
-        ArrayList < DayLife > approvedDayLifes = (ArrayList<DayLife>) task.getApprovedDayLifes().stream()
+        List < DayLife > approvedDayLifes = task.getApprovedDayLifes().stream()
                                 .collect(Collectors.toList());
 
         boolean deletedDayLifes = dayLifes.stream()
@@ -50,6 +65,7 @@ public class TaskDeleteService {
         boolean deletedApprovedDayLifes = approvedDayLifes.stream()
             .allMatch( dayLife -> deleteTaskFromDayLife( dayLife, task));
 
+                                 
         ArrayList < DayLife > orphanDayLifes = new ArrayList<>();
 
         //Colect orphan daylifes
@@ -65,10 +81,12 @@ public class TaskDeleteService {
         boolean result = deletedDayLifes && deletedApprovedDayLifes;
 
         if ( result ){
-            habitsBuilderService.saveTask( task );
+
+            //habitsBuilderService.saveTask( task );
             habitsBuilderService.deleteTaskById( task.getId() );  
         }
         return result;
+        /**/ // return true;
     }
 
     public boolean deleteTaskFromFutureDayLifes( Task task ){
