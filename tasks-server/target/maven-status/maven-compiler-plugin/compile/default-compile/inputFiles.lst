@@ -1,14 +1,15 @@
 /workspace/Karpe-Diem-Habits/tasks-server/src/main/java/com/KarpeDiemHabits/TasksServer/service/HabitsBuilderServiceImpl.java
 /workspace/Karpe-Diem-Habits/tasks-server/src/main/java/com/KarpeDiemHabits/TasksServer/HabitsBuilderApplication.java
-/workspace/Karpe-Diem-Habits/tasks-server/src/main/java/com/KarpeDiemHabits/TasksServer/service/TaskFinderByDateService.java
 /workspace/Karpe-Diem-Habits/tasks-server/src/main/java/com/KarpeDiemHabits/TasksServer/repository/TaskRepository.java
+/workspace/Karpe-Diem-Habits/tasks-server/src/main/java/com/KarpeDiemHabits/TasksServer/controller/TaskDeleteController.java
 /workspace/Karpe-Diem-Habits/tasks-server/src/main/java/com/KarpeDiemHabits/TasksServer/repository/DayLifeRepository.java
+/workspace/Karpe-Diem-Habits/tasks-server/src/main/java/com/KarpeDiemHabits/TasksServer/service/TaskDeleteService.java
 /workspace/Karpe-Diem-Habits/tasks-server/src/main/java/com/KarpeDiemHabits/TasksServer/entities/DayLife.java
 /workspace/Karpe-Diem-Habits/tasks-server/src/main/java/com/KarpeDiemHabits/TasksServer/LoadDatabase.java
 /workspace/Karpe-Diem-Habits/tasks-server/src/main/java/com/KarpeDiemHabits/TasksServer/service/HabitsBuilderService.java
 /workspace/Karpe-Diem-Habits/tasks-server/src/main/java/com/KarpeDiemHabits/TasksServer/entities/Task.java
-/workspace/Karpe-Diem-Habits/tasks-server/src/main/java/com/KarpeDiemHabits/TasksServer/service/DayLifeCalculatorService.java
 /workspace/Karpe-Diem-Habits/tasks-server/src/main/java/com/KarpeDiemHabits/TasksServer/controller/habitsBuilderController.java
 /workspace/Karpe-Diem-Habits/tasks-server/src/main/java/com/KarpeDiemHabits/TasksServer/service/DayLifeScoreService.java
+/workspace/Karpe-Diem-Habits/tasks-server/src/main/java/com/KarpeDiemHabits/TasksServer/service/DayLifeExistsService.java
 /workspace/Karpe-Diem-Habits/tasks-server/src/main/java/com/KarpeDiemHabits/TasksServer/entities/TaskCategory.java
 /workspace/Karpe-Diem-Habits/tasks-server/src/main/java/com/KarpeDiemHabits/TasksServer/entities/TaskCategoryAttributeConverter.java

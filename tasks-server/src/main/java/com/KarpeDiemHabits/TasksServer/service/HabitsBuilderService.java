@@ -14,12 +14,11 @@ public interface HabitsBuilderService {
     Task saveTask( Task t );
 
     ArrayList<Task> getAllTask();
+    ArrayList<Task> getTasksByDate( LocalDate date);
 
     Optional <Task> getTaskById( long id );
 
     boolean deleteTaskById( long id );
-
-    Task updateTask(Task newTask);
 
     //DAYLIFE
 
@@ -33,23 +32,20 @@ public interface HabitsBuilderService {
 
     DayLife getDayLifeByDate(LocalDate date) ;
 
-    ArrayList<Task> getTasksByDate( LocalDate date );
-
     public ArrayList<DayLife> createDayLifesByInterval(Task task, LocalDate initialDate, LocalDate endDate);
 
     public void recalculateDayLifes(Task task) ;
 
-    public void recalculateFutureDayLifes(Task task) ;
-
-    public boolean deleteTaskFromDayLife( DayLife daylife, Task task );
-
-    public boolean deleteOrphanDayLife( DayLife dayLife );
-
-    public boolean isOrphanDayLife( DayLife dayLife );
-
     public boolean findTaskWithinDayLife( DayLife dayLife, Long taskId );
 
-    public boolean deleteTaskFromAllDayLife( Task task );
+    public  DayLife approveTask( Long dayLifeId, Long taskId );
 
+    public  DayLife failTask ( Long dayLifeId, Long taskId );
+
+    public boolean taskContainsDate( Task task, LocalDate date );
+
+    public void recalculateFutureDayLifes( Task task );
+
+    
     
 }

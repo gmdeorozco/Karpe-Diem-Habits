@@ -16,8 +16,6 @@ import com.KarpeDiemHabits.TasksServer.repository.TaskRepository;
 @Service
 public class HabitsBuilderServiceImpl implements HabitsBuilderService {
 
-    @Autowired
-    TaskFinderByDateService taskFinderByDate;
 
     @Autowired
     TaskRepository taskRepository;
@@ -30,16 +28,6 @@ public class HabitsBuilderServiceImpl implements HabitsBuilderService {
 
         recalculateDayLifes(taskRepository.save(t));
         return t;
-    }
-
-    @Override
-    public Task updateTask(Task newTask) {
-        return getTaskById( newTask.getId() )
-            .map(  tsk  ->  {
-                deleteTaskFromFutureDayLifes( tsk );
-                recalculateFutureDayLifes( saveTask( newTask ) );
-                return newTask;
-            }).orElse(  null );
     }
 
     @Override
@@ -63,11 +51,12 @@ public class HabitsBuilderServiceImpl implements HabitsBuilderService {
         }
     }
 
+    @Override
     public ArrayList<Task> getTasksByDate( LocalDate date ) {
         ArrayList< Task > allTasks = ( ArrayList< Task > ) taskRepository.findAll();
 
         ArrayList< Task > tasksWithDate = ( ArrayList< Task > ) allTasks.stream()
-            .filter( task -> taskFinderByDate.taskContainsDate( task, date ) )
+            .filter( task -> taskContainsDate( task, date ) )
             .collect(Collectors.toList());
 
         return tasksWithDate;
@@ -160,66 +149,6 @@ public class HabitsBuilderServiceImpl implements HabitsBuilderService {
         task.setDayLifes( relevantDayLifes );
     }
 
-    public boolean deleteTaskFromFutureDayLifes( Task task ){
-
-        LocalDate today = LocalDate.now();
-        System.out.println("todayś date: " + today.toString() );
-
-        ArrayList < DayLife > dayLifes = (ArrayList<DayLife>) task.getDayLifes().stream()
-                                .filter( dl -> dl.getDate().equals( today ) || dl.getDate().isAfter( today ) )
-                                .collect(Collectors.toList());
-        
-        ArrayList < DayLife > approvedDayLifes = (ArrayList<DayLife>) task.getApprovedDayLifes().stream()
-                                .filter( dl -> dl.getDate().equals(today) || dl.getDate().isAfter(today) )
-                                .collect(Collectors.toList());
-
-        boolean deletedDayLifes = dayLifes.stream()
-            .allMatch( dayLife -> deleteTaskFromDayLife( dayLife, task));
-
-
-        boolean deletedApprovedDayLifes = approvedDayLifes.stream()
-            .allMatch( dayLife -> deleteTaskFromDayLife( dayLife, task));
-
-        ArrayList < DayLife > orphanDayLifes = new ArrayList<>();
-
-        //Colect orphan daylifes
-        dayLifes.stream().filter( dayLife -> isOrphanDayLife(dayLife) )
-            .forEach( dayLife -> orphanDayLifes.add(dayLife));
-        
-        approvedDayLifes.stream().filter( dayLife -> isOrphanDayLife(dayLife) )
-            .forEach( dayLife -> orphanDayLifes.add(dayLife));
-
-        orphanDayLifes.stream().forEach( dayLife -> deleteOrphanDayLife(dayLife) );
-        
-
-        return deletedDayLifes && deletedApprovedDayLifes;
-    }
-
-    //DELETE TASK FROM DAYLIFE
-    @Override
-    public boolean deleteTaskFromDayLife( DayLife daylife, Task task ){
-
-        boolean removeFromTasks = daylife.getTasks().remove( task );
-        boolean removeFromApprovedTasks = daylife.getApprovedTasks().remove( task );
-        boolean removeDayLife = task.getDayLifes().remove( daylife );
-        boolean removeApprovedDayLife = task.getApprovedDayLifes().remove( daylife );
-
-        return ( removeFromTasks || removeFromApprovedTasks)
-         && ( removeDayLife || removeApprovedDayLife );
-    }
-   
-    @Override
-    public boolean deleteOrphanDayLife( DayLife dayLife ){
-        return isOrphanDayLife( dayLife ) && deleteDayLifeById( dayLife.getId() );
-    }
-
-    @Override
-    public boolean isOrphanDayLife( DayLife dayLife ){
-        return dayLife.getTasks().size() == 0 && dayLife.getApprovedTasks().size() == 0;
-    }
-   
-
-
     //CHECK IF TASK IS CONTAINED IN A DAYLIFE
     @Override
     public boolean findTaskWithinDayLife( DayLife dayLife, Long taskId ){
@@ -233,38 +162,48 @@ public class HabitsBuilderServiceImpl implements HabitsBuilderService {
         return isOnTasks || isOnApprovedTasks;
             
     }
-
+    
     
     @Override
-    public boolean deleteTaskFromAllDayLife( Task task ){
-
-        ArrayList < DayLife > dayLifes = (ArrayList<DayLife>) task.getDayLifes().stream()
-                                .collect(Collectors.toList());
+    public DayLife approveTask( Long dayLifeId, Long taskId ){
+        Optional < DayLife > dayLife = getDayLifeById( dayLifeId );
+        Optional < Task > task = getTaskById( taskId );
         
-        ArrayList < DayLife > approvedDayLifes = (ArrayList<DayLife>) task.getApprovedDayLifes().stream()
-                                .collect(Collectors.toList());
-
-        boolean deletedDayLifes = dayLifes.stream()
-            .allMatch( dayLife -> deleteTaskFromDayLife( dayLife, task));
-
-
-        boolean deletedApprovedDayLifes = approvedDayLifes.stream()
-            .allMatch( dayLife -> deleteTaskFromDayLife( dayLife, task));
-
-        ArrayList < DayLife > orphanDayLifes = new ArrayList<>();
-
-        //Colect orphan daylifes
-        dayLifes.stream().filter( dayLife -> isOrphanDayLife(dayLife) )
-            .forEach( dayLife -> orphanDayLifes.add(dayLife));
-        
-        approvedDayLifes.stream().filter( dayLife -> isOrphanDayLife(dayLife) )
-            .forEach( dayLife -> orphanDayLifes.add(dayLife));
-
-        orphanDayLifes.stream().forEach( dayLife -> deleteOrphanDayLife(dayLife) );
-        
-
-        return deletedDayLifes && deletedApprovedDayLifes;
+        if ( dayLife.isPresent() && task.isPresent() &&
+            findTaskWithinDayLife( dayLife.get(), taskId ) &&
+            dayLife.get().getTasks().remove( task.get() ) &&
+            dayLife.get().getApprovedTasks().add( task.get() )){
+                return saveDayLife(dayLife.get());
+            }
+        return null;
     }
 
+    @Override
+    public DayLife failTask(Long dayLifeId, Long taskId) {
+        Optional <DayLife> dayLife = getDayLifeById( dayLifeId );
+        Optional <Task> task = getTaskById( taskId );
+        
+        if( dayLife.isPresent() && task.isPresent() &&
+            findTaskWithinDayLife(dayLife.get(), taskId) &&
+            dayLife.get().getApprovedTasks().remove(task.get()) &&
+            dayLife.get().getTasks().add(task.get()) ){
+           
+                return saveDayLife(dayLife.get());
+        } else{
+            return null;
+        }
+
+    }
+
+    //CHECK IF TASK CONTAINS  A DATE
+    @Override
+    public boolean taskContainsDate( Task task, LocalDate date ){
+        LocalDate taskInitialDate = task.getInitialDate();
+        LocalDate taskEndDate = task.getEndDate();
+
+        return ( taskInitialDate.equals(date) 
+            || taskEndDate.equals(date) 
+            || ( taskInitialDate.isBefore( date ) && taskEndDate.isAfter( date ) ));
+    }
     
 }
