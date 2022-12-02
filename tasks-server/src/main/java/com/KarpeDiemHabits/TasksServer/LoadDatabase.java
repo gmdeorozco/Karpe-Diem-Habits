@@ -10,14 +10,16 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import com.KarpeDiemHabits.TasksServer.entities.Task;
-import com.KarpeDiemHabits.TasksServer.service.HabitsBuilderService;
+import com.KarpeDiemHabits.TasksServer.repository.DayLifeRepository;
+import com.KarpeDiemHabits.TasksServer.repository.TaskRepository;
+import com.KarpeDiemHabits.TasksServer.service.daylifeServices.DayLifeGetterService;
 
 @Configuration
 public class LoadDatabase {
     private static final Logger log = LoggerFactory.getLogger( LoadDatabase.class );
 
     @Autowired
-    HabitsBuilderService habitsBuilderService;
+    TaskRepository taskRepository;
 
     @Bean
     CommandLineRunner iniDatabase(){
@@ -38,7 +40,7 @@ public class LoadDatabase {
                 .goal("Do it for 6 months from friday to Sunday")
                 .build();
             
-            habitsBuilderService.saveTask(task);
+                taskRepository.save( task );
         };
     }
 }

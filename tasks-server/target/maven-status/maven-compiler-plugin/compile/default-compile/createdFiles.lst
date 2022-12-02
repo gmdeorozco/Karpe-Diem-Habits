@@ -4,6 +4,7 @@ com/KarpeDiemHabits/TasksServer/service/HabitsBuilderService.class
 com/KarpeDiemHabits/TasksServer/entities/Task.class
 com/KarpeDiemHabits/TasksServer/LoadDatabase.class
 com/KarpeDiemHabits/TasksServer/service/HabitsBuilderServiceImpl.class
+com/KarpeDiemHabits/TasksServer/service/TaskUpdateService.class
 com/KarpeDiemHabits/TasksServer/controller/TaskDeleteController.class
 com/KarpeDiemHabits/TasksServer/entities/TaskCategoryAttributeConverter.class
 com/KarpeDiemHabits/TasksServer/repository/DayLifeRepository.class

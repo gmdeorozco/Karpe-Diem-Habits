@@ -1,6 +1,7 @@
 /workspace/Karpe-Diem-Habits/tasks-server/src/main/java/com/KarpeDiemHabits/TasksServer/service/HabitsBuilderServiceImpl.java
 /workspace/Karpe-Diem-Habits/tasks-server/src/main/java/com/KarpeDiemHabits/TasksServer/HabitsBuilderApplication.java
 /workspace/Karpe-Diem-Habits/tasks-server/src/main/java/com/KarpeDiemHabits/TasksServer/repository/TaskRepository.java
+/workspace/Karpe-Diem-Habits/tasks-server/src/main/java/com/KarpeDiemHabits/TasksServer/service/TaskUpdateService.java
 /workspace/Karpe-Diem-Habits/tasks-server/src/main/java/com/KarpeDiemHabits/TasksServer/controller/TaskDeleteController.java
 /workspace/Karpe-Diem-Habits/tasks-server/src/main/java/com/KarpeDiemHabits/TasksServer/repository/DayLifeRepository.java
 /workspace/Karpe-Diem-Habits/tasks-server/src/main/java/com/KarpeDiemHabits/TasksServer/service/TaskDeleteService.java

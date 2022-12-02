@@ -1,8 +1,9 @@
-package com.KarpeDiemHabits.TasksServer.service;
+package com.KarpeDiemHabits.TasksServer.service.taskServices;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
@@ -12,17 +13,35 @@ import org.springframework.stereotype.Service;
 
 import com.KarpeDiemHabits.TasksServer.entities.DayLife;
 import com.KarpeDiemHabits.TasksServer.entities.Task;
+import com.KarpeDiemHabits.TasksServer.repository.DayLifeRepository;
+import com.KarpeDiemHabits.TasksServer.repository.TaskRepository;
+import com.KarpeDiemHabits.TasksServer.service.daylifeServices.DayLifeGetterService;
 
 @Service
 public class TaskDeleteService {
     
     @Autowired
-    HabitsBuilderService habitsBuilderService;
+    DayLifeGetterService habitsBuilderService;
+
+    @Autowired
+    TaskRepository taskRepository;
+
+    @Autowired
+    DayLifeRepository dayLifeRepository;
 
     Logger log = LoggerFactory.getLogger( TaskDeleteService.class );
 
+    public boolean deleteTaskById(long id) {
+        try {
+            Optional<Task> t = taskRepository.findById(id);
+            taskRepository.delete(t.get());
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+    
     //DELETE TASK FROM DAYLIFE
-   
     public boolean deleteTaskFromDayLife( DayLife daylife, Task task ){
 
         boolean removeFromTasks = daylife.getTasks().remove( task );
@@ -36,16 +55,9 @@ public class TaskDeleteService {
 
         if ( result ){
 
-            log.warn("Deleted Task " + 
-                task.getName() + 
-                " from Daylife: " + 
-                daylife.getDate());
-            log.warn( "Task id " + task.getId());
-            log.warn( "Daylife id " + daylife.getId());
-
-            habitsBuilderService.saveDayLife( daylife );
-            //habitsBuilderService.saveTask(task);
-            //deleteOrphanDayLife( daylife );
+            
+            dayLifeRepository.save( daylife );
+            deleteOrphanDayLife( daylife );
         }  
         return result;
     }
@@ -82,11 +94,10 @@ public class TaskDeleteService {
 
         if ( result ){
 
-            //habitsBuilderService.saveTask( task );
-            habitsBuilderService.deleteTaskById( task.getId() );  
+            deleteTaskById( task.getId() );  
         }
         return result;
-        /**/ // return true;
+        
     }
 
     public boolean deleteTaskFromFutureDayLifes( Task task ){
@@ -135,12 +146,4 @@ public class TaskDeleteService {
     }
 
    
-    public Task updateTask(Task newTask) {
-        return habitsBuilderService.getTaskById( newTask.getId() )
-            .map(  tsk  ->  {
-                deleteTaskFromFutureDayLifes( tsk );
-                habitsBuilderService.recalculateFutureDayLifes( habitsBuilderService.saveTask( newTask ) );
-                return newTask;
-            }).orElse(  null );
-    }
 }
