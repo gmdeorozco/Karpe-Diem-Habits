@@ -1,4 +1,4 @@
-package com.karpediemhabits.challengeserver2.entities;
+package com.karpediemhabits.habitsbuilder.entities;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -49,10 +49,10 @@ public class Challenge {
 
     private LocalTime time;
 
-    /*@JsonIgnore
+    @JsonIgnore
     @OneToMany( orphanRemoval = true, cascade = CascadeType.REMOVE, mappedBy = "challenge")
     @Builder.Default
-    private List<Execution>  executions = new ArrayList<Execution>();*/
+    private List<Execution>  executions = new ArrayList<Execution>();
 
     public boolean dayOfWeekIsActive( java.time.DayOfWeek dayOfWeek ){
         return switch ( dayOfWeek ) {

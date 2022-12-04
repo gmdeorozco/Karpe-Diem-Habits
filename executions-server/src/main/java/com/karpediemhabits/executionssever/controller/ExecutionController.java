@@ -1,4 +1,4 @@
-package com.karpediemhabits.challengeserver2.controller;
+package com.karpediemhabits.executionssever.controller;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -13,9 +13,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.karpediemhabits.challengeserver2.entities.Execution;
-import com.karpediemhabits.challengeserver2.repository.ExecutionRepository;
-import com.karpediemhabits.challengeserver2.service.ChallengeCreateUpdateService;
+import com.karpediemhabits.executionssever.entities.Execution;
+import com.karpediemhabits.executionssever.repository.ExecutionRepository;
+import com.karpediemhabits.executionssever.service.ChallengeCreateUpdateService;
 
 @RestController
 public class ExecutionController {

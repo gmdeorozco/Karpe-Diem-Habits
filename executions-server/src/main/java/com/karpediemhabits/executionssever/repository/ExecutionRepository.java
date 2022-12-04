@@ -1,4 +1,4 @@
-package com.karpediemhabits.challengeserver2.repository;
+package com.karpediemhabits.executionssever.repository;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -6,7 +6,7 @@ import java.util.List;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
-import com.karpediemhabits.challengeserver2.entities.Execution;
+import com.karpediemhabits.executionssever.entities.Execution;
 
 public interface ExecutionRepository extends CrudRepository<Execution, Long>{
 

@@ -1,4 +1,4 @@
-package com.karpediemhabits.challengeserver2.entities;
+package com.karpediemhabits.habitsbuilder.entities;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;
