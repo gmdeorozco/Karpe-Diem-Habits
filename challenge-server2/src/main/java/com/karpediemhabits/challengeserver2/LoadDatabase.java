@@ -50,7 +50,9 @@ public class LoadDatabase {
                 .build();
             
                 challengeCreateUpdateService.saveChallenge( challenge2 );
-                challengeCreateUpdateService.updateChallenge(challenge2);
+
+                challengeCreateUpdateService.approve(2L);
+                challengeCreateUpdateService.approve(3L);
         };
     }
 }

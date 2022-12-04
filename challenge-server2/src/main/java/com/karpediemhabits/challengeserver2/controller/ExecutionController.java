@@ -45,5 +45,10 @@ public class ExecutionController {
     public boolean getScoreByDate( @PathVariable(value="executionId") Long executionId ){
         return challengeCreateUpdateService.approve( executionId );
     }
+
+    @GetMapping("/execution/count")
+    public long count(){
+        return executionRepository.count();
+    }
     
 }

@@ -100,4 +100,13 @@ public class ChallengeCreateUpdateService {
         return true;
          
     }
+
+    public boolean fail( Long executionId ) {
+        Execution ex = executionRepository.findById(executionId).get(); 
+        ex.setChallengeApproved(false);
+        executionRepository.save(ex);
+
+        return true;
+         
+    }
 }
