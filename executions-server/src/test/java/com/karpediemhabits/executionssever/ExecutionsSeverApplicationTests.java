@@ -1,10 +1,10 @@
-package com.karpediemhabits.challengeserver2;
+package com.karpediemhabits.executionssever;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class ChallengeServer2ApplicationTests {
+class ExecutionsSeverApplicationTests {
 
 	@Test
 	void contextLoads() {
