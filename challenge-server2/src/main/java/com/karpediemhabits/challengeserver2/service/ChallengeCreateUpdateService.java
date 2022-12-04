@@ -80,4 +80,24 @@ public class ChallengeCreateUpdateService {
         executionRepository.deleteById(execution.getId());
         return true;
     }
+
+    public double getScoreByDate(LocalDate date){
+        Long approved = executionRepository.findByDate(date).stream()
+            .filter( ex -> ex.isChallengeApproved())
+            .count();
+
+        Long totalEx = executionRepository.findByDate(date).stream()
+            .count();
+        
+        return ( 100 * approved )/totalEx;
+    }
+
+    public boolean approve( Long executionId ) {
+        Execution ex = executionRepository.findById(executionId).get(); 
+        ex.setChallengeApproved(true);
+        executionRepository.save(ex);
+
+        return true;
+         
+    }
 }
