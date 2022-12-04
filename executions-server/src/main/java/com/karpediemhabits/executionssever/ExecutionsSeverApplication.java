@@ -1,13 +1,13 @@
-package com.karpediemhabits.challengeserver2;
+package com.karpediemhabits.executionssever;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class ChallengeServer2Application {
+public class ExecutionsSeverApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(ChallengeServer2Application.class, args);
+		SpringApplication.run(ExecutionsSeverApplication.class, args);
 	}
 
 }
