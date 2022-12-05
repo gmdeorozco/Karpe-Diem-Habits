@@ -33,6 +33,7 @@ public class Execution {
 
     private boolean challengeApproved;
     private boolean challengeStarted;
+    private Long challengeId;
 
     public DayOfWeek getDayOfWeek(){
         return date.getDayOfWeek();

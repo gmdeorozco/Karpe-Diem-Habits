@@ -10,7 +10,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import com.karpediemhabits.challengeserver2.entities.Challenge;
-import com.karpediemhabits.challengeserver2.repository.ChallengeRepository;
 import com.karpediemhabits.challengeserver2.service.ChallengeCreateUpdateService;
 
 
@@ -33,7 +32,7 @@ public class LoadDatabase {
                 .endDate(LocalDate.parse("2022-12-23"))
                 .build();
             
-                challengeCreateUpdateService.saveChallenge( challenge );
+                challengeCreateUpdateService.createChallenge( challenge );
 
             Challenge challenge2 = Challenge.builder()
                 .challengeGoal("do it everyday")
@@ -49,10 +48,9 @@ public class LoadDatabase {
                 .endDate(LocalDate.parse("2022-12-23"))
                 .build();
             
-                challengeCreateUpdateService.saveChallenge( challenge2 );
+                challengeCreateUpdateService.createChallenge( challenge2 );
 
-                challengeCreateUpdateService.approve(2L);
-                challengeCreateUpdateService.approve(3L);
+                
         };
     }
 }

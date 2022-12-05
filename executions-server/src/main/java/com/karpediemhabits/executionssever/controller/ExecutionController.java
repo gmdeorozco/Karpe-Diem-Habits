@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.karpediemhabits.executionssever.entities.Execution;
 import com.karpediemhabits.executionssever.repository.ExecutionRepository;
-import com.karpediemhabits.executionssever.service.ChallengeCreateUpdateService;
+import com.karpediemhabits.executionssever.service.ExecutionService;
 
 @RestController
 public class ExecutionController {
@@ -24,7 +24,7 @@ public class ExecutionController {
     ExecutionRepository executionRepository;
 
     @Autowired
-    ChallengeCreateUpdateService challengeCreateUpdateService;
+    ExecutionService challengeCreateUpdateService;
 
     @GetMapping("/execution/bydate/{date}")
     public ResponseEntity< List< Execution> > getExecutionByDate( @PathVariable(value = "date") LocalDate date){
