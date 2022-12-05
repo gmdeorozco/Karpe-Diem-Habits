@@ -35,6 +35,7 @@ public class LoadDatabase {
                 .challengeStarted(false)
                 .date(LocalDate.parse("2022-12-02"))
                 .time(LocalTime.now())
+                .challengeId(1L)
                 .build();
             
                 executionRepository.save( execution );

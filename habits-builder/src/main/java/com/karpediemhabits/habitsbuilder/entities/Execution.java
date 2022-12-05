@@ -34,12 +34,11 @@ public class Execution {
     private boolean challengeApproved;
     private boolean challengeStarted;
 
+    private DayOfWeek dayOfWeek;
+    private Long challengeId;
     
     @ManyToOne
     private Challenge challenge;
 
-    public DayOfWeek getDayOfWeek(){
-        return date.getDayOfWeek();
-    }
 
 }

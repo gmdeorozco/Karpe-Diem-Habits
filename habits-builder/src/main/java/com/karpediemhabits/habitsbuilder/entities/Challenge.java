@@ -18,6 +18,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Entity
 @Data
@@ -52,7 +53,7 @@ public class Challenge {
     @JsonIgnore
     @OneToMany( orphanRemoval = true, cascade = CascadeType.REMOVE, mappedBy = "challenge")
     @Builder.Default
-    private List<Execution>  executions = new ArrayList<Execution>();
+    @ToString.Exclude private List<Execution>  executions = new ArrayList<Execution>();
 
     public boolean dayOfWeekIsActive( java.time.DayOfWeek dayOfWeek ){
         return switch ( dayOfWeek ) {

@@ -40,7 +40,7 @@ public class ExecutionService {
             ){
                 executionRepository.save(
                         Execution.builder()
-                        .challengeId( challengeId )
+                        //.challengeId( challengeId )
                         .date( date )
                         .time( time )
                         .build()
@@ -58,7 +58,7 @@ public class ExecutionService {
 
        List<Execution> futureExecutions = ((List<Execution>) executionRepository.findAll()).stream()
 
-            .filter(ex -> ex.getChallengeId() == challengeId)
+           // .filter(ex -> ex.getChallengeId() == challengeId)
             .filter(ex -> ex.getDate().isAfter( LocalDate.now()) || ex.getDate().isEqual( LocalDate.now()))
             .collect(Collectors.toList());
 
