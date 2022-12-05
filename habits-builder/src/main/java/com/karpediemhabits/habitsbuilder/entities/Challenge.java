@@ -1,16 +1,24 @@
-package com.karpediemhabits.challengeserver2.entities;
+package com.karpediemhabits.habitsbuilder.entities;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.ArrayList;
+import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Entity
 @Data
@@ -42,7 +50,11 @@ public class Challenge {
 
     private LocalTime time;
 
-   
+    @JsonIgnore
+    @OneToMany( orphanRemoval = true, cascade = CascadeType.REMOVE, mappedBy = "challenge")
+    @Builder.Default
+    @ToString.Exclude private List<Execution>  executions = new ArrayList<Execution>();
+
     public boolean dayOfWeekIsActive( java.time.DayOfWeek dayOfWeek ){
         return switch ( dayOfWeek ) {
             case SUNDAY -> this.sunday;

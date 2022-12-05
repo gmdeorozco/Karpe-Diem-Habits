@@ -26,7 +26,7 @@ public class ChallengeController {
 
     @PostMapping("/challenge/create")
     public ResponseEntity<Challenge> createChallenge( @RequestBody Challenge challenge ){
-        return new ResponseEntity<Challenge>(challengeCreateUpdateService.saveChallenge(challenge),HttpStatus.CREATED);
+        return new ResponseEntity<Challenge>(challengeCreateUpdateService.createChallenge(challenge),HttpStatus.CREATED);
     }
 
     @PutMapping("/challenge/update")

@@ -1,4 +1,4 @@
-package com.karpediemhabits.executionssever.entities;
+package com.karpediemhabits.habitsbuilder.entities;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;
@@ -33,10 +33,12 @@ public class Execution {
 
     private boolean challengeApproved;
     private boolean challengeStarted;
-    private Long challengeId;
 
-    public DayOfWeek getDayOfWeek(){
-        return date.getDayOfWeek();
-    }
+    private DayOfWeek dayOfWeek;
+    private Long challengeId;
+    
+    @ManyToOne
+    private Challenge challenge;
+
 
 }
