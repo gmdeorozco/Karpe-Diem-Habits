@@ -1,18 +1,22 @@
-# Karpe Diem Habits
+# KARPE DIEM HABITS
 
 This app helps to keep track of Habits Building.
 
-# TECHNOLOGIES APPLIED:
+# Technologies Applied:
 
 - Gitpod Java 17 setup
 - Java / Maven built project
 - JPA / Hibernate for DB persistency.
-- h2 in memory Database **
+    - with Queries **
+    - with Pagination **
+    - with Query Builder **
+- h2 in memory Database ***
 - Spring Web for Restful services **
 - Lombok ** (check if applied in all use cases)
+
 - Separate into small services.
 
-# TECHNOLOGIES TO BE APPLIED
+# Technologies TO BE Applied:
 
 - HATEOAS for improving Restful Services / Pagination
 - Spring Security for -> Authentication -> Authorization -> Link DB info to each user
